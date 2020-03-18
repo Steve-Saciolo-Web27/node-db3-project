@@ -1,10 +1,16 @@
-const express = require('express');
+const express = require('express')
+const helmet = require('helmet')
+const morgan = require('morgan')
+require('dotenv').config()
 
-const SchemeRouter = require('./schemes/scheme-router.js');
+const SchemeRouter = require('./schemes/scheme-router.js')
 
-const server = express();
+const server = express()
 
-server.use(express.json());
-server.use('/api/schemes', SchemeRouter);
+server.use(helmet())
+server.use(morgan('dev'))
+server.use(express.json())
 
-module.exports = server;
+server.use('/api/schemes', SchemeRouter)
+
+module.exports = server
